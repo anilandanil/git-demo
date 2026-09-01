@@ -1,0 +1,70 @@
+
+Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
+
+
+
+for powershel 
+Create the venv:
+python -m venv .venv
+
+Activate it in PowerShell:	
+.venv\Scripts\Activate.ps1
+
+Activate it in Bash 
+source venv\Scripts\Activate
+
+to deactivate => deactivate
+
+Install requirements:
+pip install -r requirements.txt
+ or
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+
+
+python manage.py makemigrations
+python manage.py migrate
+
+
+python manage.py runserver
+
+import sql file using below cmnd
+
+"C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres -f "C:\Users\AnilSajjanshetty\Downloads\demo-server-backup-020226.sql"
+
+
+
+run core FastAPI app
+uvicorn main.main:app --reload --host 0.0.0.0 --port 8000
+or
+python -m uvicorn main.main:app --reload --host 0.0.0.0 --port 8000 	
+
+run SOC FastAPI service in another shell
+uvicorn services.soc.main:app --reload --host 0.0.0.0 --port 8001
+or 
+python -m uvicorn services.soc.main:app --reload --host 0.0.0.0 --port 8001
+
+If you want the Celery worker too:
+celery -A main.tasks.celery_app.celery worker --loglevel=info
+
+
+migrate => python -m main.db.auto_migrate
+
+run script in fast api
+python -m services.soar.scripts.fetch_threats
+
+python services/iam/modules/iam/scripts/get_token.py
+
+
+migration command for sqlachmy=>
+python -m alembic revision --autogenerate -m "add missing role assignment fields"
+python -m alembic upgrade head 
+python -m alembic heads  
+
+
+
+check cron job logs for ismart us
+tail -20 /home/ismart2admin/logs/cases_details.log
+grep CRON /var/log/syslog  
+grep CRON /var/log/syslog | tail -50
+journalctl -u cron
